@@ -3,6 +3,7 @@
 {% block title %}Our Menu{% endblock %}
 
 {% block script %}
+
 <script>
 $(document).ready(function(){
 
@@ -80,9 +81,9 @@ $(document).ready(function(){
     } else if ($(this).val().includes('2')) {
       $("#sictopping1").show();
       $("#sictopping2").show();
-      $("#sictopping3").hide();      
-      $("#sictopping4").hide();      
-      $("#sictopping5").hide();      
+      $("#sictopping3").hide();
+      $("#sictopping4").hide();
+      $("#sictopping5").hide();
       $("#sictopping1").prop('required',true);
       $("#sictopping2").prop('required',true);
       $("#sictopping3").prop('required',false);
@@ -123,7 +124,7 @@ $(document).ready(function(){
       $("#sictopping5").prop('required',false);
     }
   });
-	
+
   $("#subskind").change(function() {
     if ($(this).val().includes('Steak')) {
       $("#subextras").show();
@@ -139,13 +140,10 @@ $(document).ready(function(){
       $("#subssize option[value='Small']").removeAttr('disabled');
     }
   });
-
-
-
-
 });
 </script>
 {% endblock %}
+
 
 {% block body %}
 {% if message %}
@@ -154,16 +152,17 @@ $(document).ready(function(){
 </div>
 {% endif %}
 
-<table class="text-center">
-  <tr class="topbottomspace">
-	  <th><h2>Our Menu</h2></th>
-  </tr>
-</table>
-<table class="table table-bordered text-center">
-  <tbody>
-    <tr>
+<div class="text-center">
+	 <h2>Our Menu</h2>
+
+</div>
+<!--<table class="table-responsive">-->
+     <!--<table class="table">-->
+    <!--<tr>-->
+ <div class="row">
       <!-- Regular Pizza -->
-      <td class="w-50">
+      <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="container">
         <form action="{% url 'additem' %}" method="post">
         {% csrf_token %}
           {% for c in regular.category %}
@@ -199,12 +198,14 @@ $(document).ready(function(){
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Order</button>
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
         </form>
-      </td>
+      </div>
+      </div>
 
       <!-- Sicilian Pizza -->
-      <td class="w-50">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="container">
         <form action="{% url 'additem' %}" method="post">
         {% csrf_token %}
           {% for c in sicilian.category %}
@@ -240,13 +241,15 @@ $(document).ready(function(){
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Order</button>
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
         </form>
-      </td>
-    </tr>
-    <tr>
+      </div>
+      </div>
+    <!--</tr>-->
+    <!--<tr>-->
       <!-- Subs -->
-      <td class="w-50">
+       <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="container">
         <form action="{% url 'additem' %}" method="post">
           {% csrf_token %}
             {% for c in subs.category %}
@@ -298,10 +301,13 @@ $(document).ready(function(){
                 </div>
               </div>
             </div>
-          <button type="submit" class="btn btn-primary">Order</button>
+          <button type="submit" class="btn btn-primary">Add to Cart<Card></Card></button>
         </form>
-      </td>
-      <td>      
+          </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="container">
         <form action="{% url 'additem' %}" method="post">
         {% csrf_token %}
 	        {% for c in platters.category %}
@@ -329,12 +335,15 @@ $(document).ready(function(){
   	          </div>
 	          </div>
           </div>
-          <button type="submit" class="btn btn-primary">Order</button>
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
         </form>
-      </td>
-    </tr>
-    <tr>
-      <td class="w-50">      
+      </div>
+      </div>
+    <!--</tr>-->
+    <!--<tr>-->
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="container">
         <form action="{% url 'additem' %}" method="post">
         {% csrf_token %}
 	        {% for c in pasta.category %}
@@ -362,10 +371,13 @@ $(document).ready(function(){
   	          </div>
 	          </div>
           </div>
-          <button type="submit" class="btn btn-primary">Order</button>
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
         </form>
-      </td>
-      <td>
+      </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="container">
         <form action="{% url 'additem' %}" method="post">
         {% csrf_token %}
 	        {% for c in salads.category %}
@@ -385,7 +397,7 @@ $(document).ready(function(){
             {% endif %}
           {% endfor %}
             <div class="row">
-  	          <label for="saladsqty" class="col-2 col-form-label">Qty</label>
+  	          <label for="saladsqty" class="col-2 col-form-label">Add to Cart</label>
 	          </div>
 	          <div class="row">
               <div class="col-sm-4"> 
@@ -393,10 +405,14 @@ $(document).ready(function(){
   	          </div>
 	          </div>
           </div>
-          <button type="submit" class="btn btn-primary">Order</button>
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
         </form>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+      </div>
+ </div>
+  <!--</tr>-->
+
+<!--</table>-->
+<!--</table>  -->
 {% endblock %}
+

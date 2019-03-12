@@ -6,10 +6,10 @@ from .models import PizzaTopping, SubExtra, MenuItem, Order, OrderItem
 class OrderItemTestCase(TestCase):
 
     def setUp(self):
-        customer1 = User.objects.create(username='kylepw')
+        customer1 = User.objects.create(username='hemabh')
         order1 = Order.objects.create(customer=customer1)
 
-        customer2 = User.objects.create(username='jimmy')
+        customer2 = User.objects.create(username='hemabh1')
         order2 = Order.objects.create(customer=customer2)
         
         chickensm = OrderItem.objects.create(
