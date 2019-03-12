@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- JQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block script %}
+    {% endblock %}
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row mt-2 mr-2 ml-2"  id="topnav">
+        <div class="col bg-success">
+        </div>
+        <div class="col-6 p-2 justify-content-center bg-white" align="center">
+	        <img src="{% static 'css/pinocchio.gif' %}">
+          <h2 id="header">Pinnochio's Pizza & Subs</h2>
+        </div>
+        <div class="col bg-danger">
+        </div>
+      </div>
+      <div class="row m-0">
+        <nav class="navbar w-100 mr-2 ml-2 pb-0 pt-0 navbar-expand-md navbar-light bg-light">
+	      {% if user.is_authenticated %} 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+	      <a class="navbar-brand" href="{% url 'menu' %}">Menu</a>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link active" href="{% url 'cart' %}">Cart ({{ cartcount }})<span class="sr-only">(current)</span></a>
+	            <a class="nav-item nav-link" href="{% url 'pending' %}">Pending Orders</a>
+	            <a class="nav-item nav-link" href="{% url 'history' %}">Order History</a>
+	            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            </div>
+          </div>
+	        <span class="navbar-text">
+            Hello, {{ user.first_name }} 
+          </span>
+        {% endif %}
+        </nav>
+      </div>
+      <div class="row m-2 justify-content-center">
+        {% block body %}
+        {% endblock %}
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>

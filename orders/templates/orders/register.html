@@ -1,0 +1,49 @@
+{% extends "orders/base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+{% if message %}
+<div class="context-message">
+{{ message }}
+</div>
+{% endif %}
+<table>
+  <thead class="text-center">
+  <tr class="topbottomspace">
+    <th><h2>Register</h2></th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr><td> 
+    <form action="{% url 'register' %}" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="username">Username</label><br>
+        <input name="username" type="text" required />
+      </div>
+      <div class="form-group">
+        <label for="first_name">First Name</label><br>
+        <input name="first_name" type="text" required />
+      </div>
+      <div class="form-group">
+        <label for="last_name">Last Name</label><br>
+        <input name="last_name" type="text" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label><br>
+        <input name="email" type="email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label><br>
+        <input name="password" type="password" placeholder="Password" required />
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Register"/>
+      </div>
+    </form>
+    </td></tr>
+  </tbody>
+</table>
+
+{% endblock %}

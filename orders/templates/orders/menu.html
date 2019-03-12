@@ -1,0 +1,402 @@
+{% extends "orders/base.html" %}
+
+{% block title %}Our Menu{% endblock %}
+
+{% block script %}
+<script>
+$(document).ready(function(){
+
+  $("#regkind").change(function() {
+    if ($(this).val().includes('1')) {
+      $("#regtopping1").show();
+      $("#regtopping2").hide();
+      $("#regtopping3").hide();
+      $("#regtopping4").hide();
+      $("#regtopping5").hide();
+      $("#regtopping1").prop('required',true);
+      $("#regtopping2").prop('required',false);
+      $("#regtopping3").prop('required',false);
+      $("#regtopping4").prop('required',false);
+      $("#regtopping5").prop('required',false);
+    } else if ($(this).val().includes('2')) {
+      $("#regtopping1").show();
+      $("#regtopping2").show();
+      $("#regtopping3").hide();
+      $("#regtopping4").hide();
+      $("#regtopping5").hide();
+      $("#regtopping1").prop('required',true);
+      $("#regtopping2").prop('required',true);
+      $("#regtopping3").prop('required',false);
+      $("#regtopping4").prop('required',false);
+      $("#regtopping5").prop('required',false);
+    } else if ($(this).val().includes('3')) {
+      $("#regtopping1").show();
+      $("#regtopping2").show();
+      $("#regtopping3").show();
+      $("#regtopping4").hide();
+      $("#regtopping5").hide();
+      $("#regtopping1").prop('required',true);
+      $("#regtopping2").prop('required',true);
+      $("#regtopping3").prop('required',true);
+      $("#regtopping4").prop('required',false);
+      $("#regtopping5").prop('required',false);
+    } else if ($(this).val().includes('Special')) {
+      $("#regtopping1").show();
+      $("#regtopping2").show();
+      $("#regtopping3").show();
+      $("#regtopping4").show();
+      $("#regtopping5").show();
+      $("#regtopping1").prop('required',true);
+      $("#regtopping2").prop('required',true);
+      $("#regtopping3").prop('required',true);
+      $("#regtopping4").prop('required',true);
+      $("#regtopping5").prop('required',true);
+    } else {
+      $("#regtopping1").hide();
+      $("#regtopping2").hide();
+      $("#regtopping3").hide();
+      $("#regtopping4").hide();
+      $("#regtopping5").hide();
+      $("#regtopping1").prop('required',false);
+      $("#regtopping2").prop('required',false);
+      $("#regtopping3").prop('required',false);
+      $("#regtopping4").prop('required',false);
+      $("#regtopping5").prop('required',false);
+    }
+  });
+
+  $("#sickind").change(function() {
+    if ($(this).val().includes('1')) {
+      $("#sictopping1").show();
+      $("#sictopping2").hide();
+      $("#sictopping3").hide();
+      $("#sictopping4").hide();
+      $("#sictopping5").hide();
+      $("#sictopping1").prop('required',true);
+      $("#sictopping2").prop('required',false);
+      $("#sictopping3").prop('required',false);
+      $("#sictopping4").prop('required',false);
+      $("#sictopping5").prop('required',false);
+    } else if ($(this).val().includes('2')) {
+      $("#sictopping1").show();
+      $("#sictopping2").show();
+      $("#sictopping3").hide();      
+      $("#sictopping4").hide();      
+      $("#sictopping5").hide();      
+      $("#sictopping1").prop('required',true);
+      $("#sictopping2").prop('required',true);
+      $("#sictopping3").prop('required',false);
+      $("#sictopping4").prop('required',false);
+      $("#sictopping5").prop('required',false);
+    } else if ($(this).val().includes('3')) {
+      $("#sictopping1").show();
+      $("#sictopping2").show();
+      $("#sictopping3").show();
+      $("#sictopping4").hide();
+      $("#sictopping5").hide();
+      $("#sictopping1").prop('required',true);
+      $("#sictopping2").prop('required',true);
+      $("#sictopping3").prop('required',true);
+      $("#sictopping4").prop('required',false);
+      $("#sictopping5").prop('required',false);
+     } else if ($(this).val().includes('Special')) {
+      $("#sictopping1").show();
+      $("#sictopping2").show();
+      $("#sictopping3").show();
+      $("#sictopping4").show();
+      $("#sictopping5").show();
+      $("#sictopping1").prop('required',true);
+      $("#sictopping2").prop('required',true);
+      $("#sictopping3").prop('required',true);
+      $("#sictopping4").prop('required',true);
+      $("#sictopping5").prop('required',true);
+   } else {
+      $("#sictopping1").hide();
+      $("#sictopping2").hide();
+      $("#sictopping3").hide();
+      $("#sictopping4").hide();
+      $("#sictopping5").hide();
+      $("#sictopping1").prop('required',false);
+      $("#sictopping2").prop('required',false);
+      $("#sictopping3").prop('required',false);
+      $("#sictopping4").prop('required',false);
+      $("#sictopping5").prop('required',false);
+    }
+  });
+	
+  $("#subskind").change(function() {
+    if ($(this).val().includes('Steak')) {
+      $("#subextras").show();
+    } else {
+      $("#subextras").hide();
+    }
+  });
+
+  $("#subskind").change(function() {
+    if ($(this).val().includes('Sausage, Peppers & Onions')) {
+      $("#subssize option[value='Small']").attr('disabled', 'disabled');
+    } else {
+      $("#subssize option[value='Small']").removeAttr('disabled');
+    }
+  });
+
+
+
+
+});
+</script>
+{% endblock %}
+
+{% block body %}
+{% if message %}
+<div class="context-message">
+  {{ message }}
+</div>
+{% endif %}
+
+<table class="text-center">
+  <tr class="topbottomspace">
+	  <th><h2>Our Menu</h2></th>
+  </tr>
+</table>
+<table class="table table-bordered text-center">
+  <tbody>
+    <tr>
+      <!-- Regular Pizza -->
+      <td class="w-50">
+        <form action="{% url 'additem' %}" method="post">
+        {% csrf_token %}
+          {% for c in regular.category %}
+            {{ c }}
+          <input type="hidden" value="{{ c }}" name="category" />	
+          {% endfor %}
+          <div class="form-group mt-2"> 
+            {% for key, values in regular.items %}
+              {% if key == 'category' or key == 'price' %}
+              {% elif values|length > 1 %}
+            <select class="form-control" name="{{ key }}" id="reg{{ key }}" required>
+              <option value="" selected disabled hidden>Choose {{ key }}</option>
+              {% for v in values %}
+              <option value="{{ v }}">{{ v }}</option>
+              {% endfor %}
+            </select>
+              {% endif %}
+            {% endfor %}
+            {% for i in "iiiii" %}
+            <select class="form-control" name="topping{{ forloop.counter0|add:'1' }}" id="regtopping{{ forloop.counter0|add:'1' }}">
+              <option value="" selected disabled hidden>Topping {{ forloop.counter0|add:'1' }}</option>
+              {% for topping in toppings %}
+              <option value="{{ topping }}">{{ topping }}</option>
+              {% endfor %}
+            </select>
+            {% endfor %}
+            <div class="row">
+              <label for="regqty" class="col-2 col-form-label">Qty</label>
+            </div>
+            <div class="row">
+              <div class="col-sm-4"> 
+              <input class="form-control" type="number" value="1" name="qty" id="regqty" min="1" max="50">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Order</button>
+        </form>
+      </td>
+
+      <!-- Sicilian Pizza -->
+      <td class="w-50">
+        <form action="{% url 'additem' %}" method="post">
+        {% csrf_token %}
+          {% for c in sicilian.category %}
+          {{ c }}
+          <input type="hidden" value="{{ c }}" name="category" />	
+          {% endfor %}
+          <div class="form-group mt-2">
+            {% for key, values in sicilian.items %}
+            {% if key == 'category' or key == 'price'  %}
+            {% elif values|length > 1 %}
+            <select class="form-control" name="{{ key }}" id="sic{{ key }}" required>
+              <option value="" selected disabled hidden>Choose {{ key }}</option>
+              {% for v in values %}
+              <option value="{{ v }}">{{ v }}</option>
+              {% endfor %}
+            </select>
+            {% endif %}
+            {% endfor %}
+            {% for i in "iiiii" %}
+            <select class="form-control" name="topping{{ forloop.counter0|add:'1' }}" id="sictopping{{ forloop.counter0|add:'1' }}">
+              <option value="" selected disabled hidden>Item {{ forloop.counter0|add:'1' }}</option>
+              {% for topping in toppings %}
+              <option value="{{ topping }}">{{ topping }}</option>
+              {% endfor %}
+            </select>
+            {% endfor %}
+            <div class="row">
+              <label for="sicqty" class="col-2 col-form-label">Qty</label>
+            </div>
+            <div class="row">
+              <div class="col-sm-4" >
+                <input class="form-control" type="number" value="1" name="qty" id="sicqty" min="1" max="50">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Order</button>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <!-- Subs -->
+      <td class="w-50">
+        <form action="{% url 'additem' %}" method="post">
+          {% csrf_token %}
+            {% for c in subs.category %}
+              {{ c }}
+            <input type="hidden" value="{{ c }}" name="category" />	
+            {% endfor %}
+            <div class="form-group mt-2">
+              {% for key, values in subs.items %}
+                {% if key == 'category' or key == 'price' %}
+                {% elif values|length > 1 %}
+                <select class="form-control" name="{{ key }}" id="subs{{ key }}" required>
+                  <option value="" selected disabled hidden>Choose {{ key }}</option>
+                {% for v in values %}
+                  <option value="{{ v }}">{{ v }}</option>
+                {% endfor %}
+                </select>
+                {% endif %}
+              {% endfor %}
+                <div id="extracheese">
+              {% for extra in extras.name %}
+                  {% if 'Cheese' in extra %}
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="extra0" value="{{ extra }}" id="extra0">
+                    <label class="form-check-label" for="extra0">
+                      {{ extra }}
+                   </label>
+                  </div>
+                  {% endif %}
+              {% endfor %}
+              </div>
+              <div id="subextras">
+              {% for extra in extras.name %}
+                {% if 'Cheese' not in extra %}
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="{{ extra }}" name="extra{{ forloop.counter0|add:'1' }}" id="extra{{ forloop.counter0|add:'1' }}">
+                  <label class="form-check-label" for="extra{{ forloop.counter0|add:'1' }}">
+                    {{ extra }}
+                  </label>
+                </div>
+                {% endif %}
+              {% endfor %}
+              </div>
+              <div class="row">
+                <label for="subsqty" class="col-2 col-form-label">Qty</label>
+              </div>
+              <div class="row">
+                <div class="col-sm-4" >
+                  <input class="form-control" type="number" value="1" name="qty" id="subsqty" min="1" max="50">
+                </div>
+              </div>
+            </div>
+          <button type="submit" class="btn btn-primary">Order</button>
+        </form>
+      </td>
+      <td>      
+        <form action="{% url 'additem' %}" method="post">
+        {% csrf_token %}
+	        {% for c in platters.category %}
+	          {{ c }}
+	        <input type="hidden" value="{{ c }}" name="category" />	
+	        {% endfor %}
+	        <div class="form-group mt-2">
+          {% for key, values in platters.items %}
+	          {% if key == 'category' or key == 'price'  %}
+	          {% elif values|length > 1 %}
+	          <select class="form-control" name="{{ key }}" id="platters{{ key }}" required>
+	            <option value="" selected disabled hidden>Choose {{ key }}</option>
+	            {% for v in values %}
+	            <option value="{{ v }}">{{ v }}</option>
+              {% endfor %}
+	          </select>
+            {% endif %}
+          {% endfor %}
+            <div class="row">
+  	          <label for="saladsqty" class="col-2 col-form-label">Qty</label>
+	          </div>
+	          <div class="row">
+  	          <div class="col-sm-4" >
+	              <input class="form-control" type="number" value="1" name="qty" id="saladsqty" min="1" max="50">
+  	          </div>
+	          </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Order</button>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td class="w-50">      
+        <form action="{% url 'additem' %}" method="post">
+        {% csrf_token %}
+	        {% for c in pasta.category %}
+	        {{ c }}
+	        <input type="hidden" value="{{ c }}" name="category" />	
+	        {% endfor %}
+	        <div class="form-group mt-2">
+          {% for key, values in pasta.items %}
+	          {% if key == 'category' or key == 'price' %}
+	          {% elif values|length > 1 %}
+	          <select class="form-control" name="{{ key }}" id="pasta{{ key }}" required>
+	            <option value="" selected disabled hidden>Choose {{ key }}</option>
+	            {% for v in values %}
+	            <option value="{{ v }}">{{ v }}</option>
+              {% endfor %}
+	          </select>
+            {% endif %}
+          {% endfor %}
+	          <div class="row">
+  	          <label for="pastaqty" class="col-2 col-form-label">Qty</label>
+	          </div>
+	          <div class="row">
+              <div class="col-sm-4"> 
+	              <input class="form-control" type="number" value="1" name="qty" id="pastaqty" min="1" max="50">
+  	          </div>
+	          </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Order</button>
+        </form>
+      </td>
+      <td>
+        <form action="{% url 'additem' %}" method="post">
+        {% csrf_token %}
+	        {% for c in salads.category %}
+	          {{ c }}
+	        <input type="hidden" value="{{ c }}" name="category" />	
+	        {% endfor %}
+	        <div class="form-group mt-2">
+          {% for key, values in salads.items %}
+	          {% if key == 'category' or key == 'price'  %}
+	          {% elif values|length > 1 %}
+	          <select class="form-control" name="{{ key }}" id="salads{{ key }}" required>
+	            <option value="" selected disabled hidden>Choose {{ key }}</option>
+	            {% for v in values %}
+	            <option value="{{ v }}">{{ v }}</option>
+              {% endfor %}
+	          </select>
+            {% endif %}
+          {% endfor %}
+            <div class="row">
+  	          <label for="saladsqty" class="col-2 col-form-label">Qty</label>
+	          </div>
+	          <div class="row">
+              <div class="col-sm-4"> 
+	              <input class="form-control" type="number" value="1" name="qty" id="saladsqty" min="1" max="50">
+  	          </div>
+	          </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Order</button>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

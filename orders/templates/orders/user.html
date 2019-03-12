@@ -1,0 +1,24 @@
+{% extends "orders/base.html" %}
+
+{% block title %}Welcome, {{ user.first_name }}{% endblock %}
+
+{% block body %}
+{% if message %}
+<div class="context-message">
+  {{ message }}
+</div>
+{% endif %}
+
+<table class="text-center">
+  <tr class="topbottomspace">
+    <th><h2>Main Menu</h2></th>
+  </tr>
+  <tr><td> 
+    <nav class="nav flex-column">
+      <a class="nav-link clickhere" href="{% url 'menu' %}">New Order</a>
+      <a class="nav-link" href="#">Pending Orders</a>
+      <a class="nav-link" href="#">Past  Orders</a>
+    </nav>
+  </td></tr>
+</table>
+{% endblock %}

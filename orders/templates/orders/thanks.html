@@ -1,0 +1,32 @@
+{% extends "orders/base.html" %}
+
+{% block title %}Order Complete{% endblock %}
+
+{% block body %}
+{% if message %}
+<div class="context-message">
+  {{ message }}
+</div>
+{% endif %}
+
+<table class="text-center">
+  <tr class="topspace">
+    <th><h2>Thanks for your order, {{ user.first_name }}!</h2></th>
+  </tr>
+  <tr>
+    <td> 
+      <small>Order #{{ order.id }}</small>
+    </td>
+  </tr>
+  <tr>
+     <td>
+       <h5><em>We're on it!</em></h5>
+    </td>
+  </tr>
+  <tr><td> 
+    <nav class="nav flex-column">
+      <a class="nav-link" href="{% url 'menu' %}">Back to menu</a>
+    </nav>
+  </td></tr>
+</table>
+{% endblock %}

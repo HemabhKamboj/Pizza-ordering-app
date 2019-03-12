@@ -1,0 +1,78 @@
+{% extends "orders/base.html" %}
+
+{% block title %}{{ user.first_name }}'s Cart{% endblock %}
+
+{% block body %}
+{% if message %}
+<div class="context-message">
+  {{ message }}
+</div>
+{% endif %}
+
+<table class="text-center">
+  <tr class="topbottomspace">
+    <th><h2>Your Cart</h2></th>
+  </tr>
+</table>
+<div class="table responsive">
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <td>
+          <div class="container">
+          {% if not cart %}
+            <div class="row justify-content-center">
+              Empty.
+            </div>
+          {% else %}
+            <div class="row justify-content-center mt-3">
+              <div class="col">
+              {% for item in cart %}
+                <div class="row justify-content-center">
+                  <div class="col col-8 col-sm-8 col-md-6 col-lg-5">
+                    {{ item }}
+                    {% if item.toppings.all|length > 0 %}
+                    <ul class="list-unstyled mb-0" style="padding-left: 0.5em">
+                    {% for topping in item.toppings.all %}
+                      <li>{{ topping }}</li>
+                    {% endfor %}
+                    </ul>
+                    {% endif %}
+                  </div>
+                  <div class="col-3 col-sm-3 col-md-2 col-lg-2 text-right">
+                    {{ item.price }}
+                  </div>
+                </div>
+              {% endfor %}
+                <div class="row justify-content-center">
+                  <div class="col col-8 col-sm-8 col-md-6 col-lg-5">
+                  </div>
+                  <div style="font-weight: bold" class="col-3 col-sm-3 col-md-2 col-lg-2 text-right">
+                    ${{ total }}
+                  </div>
+                </div>
+                <div class="row justify-content-center mt-4">
+                  <form action="{% url 'checkout' %}" method="post">
+                  {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Checkout</button>
+                  </form>
+                </div>
+                <div class="row justify-content-center mt-3">
+                  <form action="{% url 'emptycart' %}" method="post">
+                  {% csrf_token %}
+                    <input type="hidden" name="orderid" value="{{ order.id }}"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                  </form>
+                </div>
+                <div class="row mt-3 justify-content-center">	    
+                  <a href="{% url 'menu' %}">Back to Menu</a>
+                </div>
+              </div>
+          {% endif %}
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

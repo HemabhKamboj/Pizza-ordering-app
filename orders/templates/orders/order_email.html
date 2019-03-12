@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <style>
+      ul {
+        list-style: none;
+        margin: 0;
+      }
+      body {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p>
+      Thanks for your order, {{ name }}! We're on it!<br>
+      <span style="font-style: italic"><small>~ Pinnochio's Pizza & Subs</small></span>
+    </p>
+
+   
+    <table> 
+  <tbody>
+    <tr>
+      <span style="font-weight: bold">{{ order }}</span><br>
+      <small>{{ order.timestamp }}</small>
+    </tr>
+    {% for item in order.items.all %}
+    <tr>
+      <td>
+        {{ item }}
+        {% if item.toppings.all|length > 0 %}
+          <ul style="padding-left: 0.1em;">
+          {% for topping in item.toppings.all %}
+	    <li>{{ topping }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      </td>
+      <td align="right" valign="top">
+        {{ item.price }}
+      </td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td></td>
+      <td align="right" style="font-weight: bold">
+        {{ order.total }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

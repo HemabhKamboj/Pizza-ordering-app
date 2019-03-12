@@ -1,0 +1,38 @@
+#topnav {
+  border: 1px solid;
+}
+
+#topnav img {
+  float: right;
+  height: 50px;
+}
+
+#topnav #header {
+  font-weight: bold;
+}
+
+.context-message {
+  color: red;
+  font-variant: small-caps;
+  font-style: italic;
+  font-weight: bold;
+}
+
+tr.topbottomspace > th {
+padding-top: 1.5em;
+padding-bottom: 1.5em;
+}
+
+tr.topspace > th {
+padding-top: 1.5em;
+}
+
+.clickhere {
+  font-weight: bold;
+}
+
+#regtopping1, #regtopping2, #regtopping3, #regtopping4, #regtopping5,
+#sictopping1, #sictopping2, #sictopping3, #sictopping4, #sictopping5, 
+#subextras {
+  display: none;
+}

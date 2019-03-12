@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- JQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <title>Customers' Pending Orders</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row m-2 justify-content-center">
+        <table class="text-center">
+          <tr class="topbottomspace">
+            <th><h2>Customers' Pending Orders</h2></th>
+          </tr>
+        </table>
+        <div class="table responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td>
+	                <div class="container">
+                  {% if not orders %}
+	                  <div class="row justify-content-center">
+	                    No pending orders.
+	                  </div>
+	                  <div class="row justify-content-center mt-3">
+                      <a href="{% url 'index' %}">Back to Mainpage</a>
+	                  </div>
+	                {% else %}
+                    <div class="row justify-content-center mb-3 border-bottom">
+                      <span class="mb-3">
+                        <a  href="{% url 'index' %}">Back to Mainpage</a>
+                      </span>
+                    </div>
+                    <div class="row justify-content-center">
+                    {% for order in orders %}
+                      <div class="col-2 col-md-4 col-lg-3 border-bottom mb-4">
+                        <div class="form-check">
+                          <ul class="list-unstyled">
+                            <li>
+	                            <span style="font-weight: bold">{{ order }}</span>
+                            </li>
+                            <li>{{ order.timestamp }}</li>
+                            <li class="mt-3 mb-2">
+                              <form action="{% url 'complete' %}" method="post">
+                              {% csrf_token %}
+                                <input type="hidden" name="orderid" value="{{ order.id }}"/>
+                                <input type="submit" class="btn btn-success btn-sm" value="Mark Completed"/>
+                              </form>
+                            </li>
+                            <li>
+                              <form action="{% url 'cancel' %}" method="post">
+                              {% csrf_token %}
+                                <input type="hidden" name="orderid" value="{{ order.id }}"/>
+                                <input type="submit" class="btn btn-danger btn-sm" value="Cancel"/>
+                              </form>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-10 col-sm-10 col-md-8 col-lg-9 border-bottom mb-4">
+                      {% for item in order.items.all %}
+                        <div class="row justify-content-center">
+                          <div class="col-9 col-md-9 col-lg-6">
+                            {{ item }}
+                          {% if item.toppings.all|length > 0 %}
+		                        <ul class="list-unstyled mb-0" style="padding-left: 0.5em">
+                            {% for topping in item.toppings.all %}
+		                          <li>{{ topping }}</li>
+                            {% endfor %}
+		                        </ul>
+		                      {% endif %}
+                          </div>
+                          <div class="col-3 col-sm-3 col-md-3 col-lg-2 text-right">
+                            {{ item.price }}
+                          </div>
+                        </div>
+                      {% endfor %}
+                        <div class="row justify-content-center">
+                          <div class="col-9 col-md-9 col-lg-6">
+                          </div>
+                          <div style="font-weight: bold" class="col-3 col-sm-3 col-md-3 col-lg-2 text-right">
+                            ${{ order.total }}
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                    </div>
+                    <div class="row justify-content-center">
+                      <a href="{% url 'index' %}">Back to Mainpage</a>
+                    </div>
+                  {% endif %}
+	                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
