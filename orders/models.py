@@ -25,9 +25,9 @@ class MenuItem(models.Model):
 
     def __str__(self):
         if self.extra:
-            return f'+ {self.kind} (${self.price})'
+            return f'+ {self.kind} (Rs{self.price})'
         else:
-            return f'{self.category} / {self.size} {self.kind} (${self.price})'
+            return f'{self.category} / {self.size} {self.kind} (Rs{self.price})'
 
 
 class Order(models.Model):

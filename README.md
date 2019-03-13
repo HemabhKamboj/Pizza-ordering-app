@@ -5,6 +5,8 @@ This project is based on an assignment of
 
 ## Milestones achieved
 
+The assignment had to be completed with meeting following requirements:
+
 - Complete the Menu, Adding Items, and Registration/Login/Logout steps.
 - Complete the Shopping Cart and Placing an Order steps.
 - Complete the Viewing Orders and Personal Touch steps.
