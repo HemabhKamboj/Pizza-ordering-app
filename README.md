@@ -1,7 +1,7 @@
 # Pizza ordering app using Django
 
 This app is live [here](https://django-pizza-order-hkamboj.herokuapp.com) <br>
-It runs a bit slow because it is deployed on Heroku free tier account.
+It runs a bit slow since it is deployed on Heroku free tier account.
 
 This project is based on an assignment of 
 [CS50 Web Development with python and javascript](https://www.edx.org/course/cs50s-web-programming-with-python-and-javascript)
