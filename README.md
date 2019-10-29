@@ -38,7 +38,7 @@ The assignment had to be completed with meeting following requirements:
 ## Tech Stack
 
 - **Django**  Django is a Python-based free and open-source web framework,
- which follows the model-view-template architectural pattern. It is maintained by the Django Software
+ which follows the model-view-template architectural pattern. It's maintained by the Django Software
  Foundation, an independent organization established as a 501 non-profit. 
 Django's primary goal is to ease the creation of complex, database-driven websites. [Django Project](https://www.djangoproject.com/) <br>
 It is used in this project, to handle all routes, rendering pages, managing databases, 
